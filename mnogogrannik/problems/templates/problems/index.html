@@ -1,0 +1,152 @@
+{% extends "problems/main.html" %}
+{% block content %}
+    <div class="container">
+      <!-- Example row of columns -->
+
+      <div class="row">
+
+      {% block header %}
+        <div class="col-md-8">
+            <div class="mnggrnnk-problem-h2">
+              <h2>Четыре монеты <small>#123</small></h2>
+            </div>
+        </div>
+      </div>
+      {% endblock %}
+
+      <div class="row">
+        <div class="col-md-8">
+        {% block problem %}
+          <div class="mnggrnnk-problem">
+
+            <p class="mnggrnnk-text">
+              Имеется четыре монеты. Из них 3 настоящие и 1 фальшивая, отличающаяся от них по массе в неизвестно какую сторону. Как за два взвешивания на чашечных весах найти её?
+            </p>
+
+            <div class="panel-group">
+              <div class="panel panel-warning">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#collapse1">Ответ</a>
+                  </h4>
+                </div>
+                <div id="collapse1" class="panel-collapse collapse">
+                  <div class="panel-body">
+                    4
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel-group">
+              <div class="panel panel-warning">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#collapse2">Указание</a>
+                  </h4>
+                </div>
+                <div id="collapse2" class="panel-collapse collapse">
+                  <div class="panel-body">
+                    Купите нормальные весы уже в конце концов!
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel-group">
+              <div class="panel panel-warning">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#collapse3">Решение</a>
+                  </h4>
+                </div>
+                <div id="collapse3" class="panel-collapse collapse">
+                  <div class="panel-body">
+                    Взвешивайте до потери пульса. Потом идите к тете Тане из овощного -- она быстро все объяснит.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="panel-group">
+              <div class="panel panel-warning">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#collapse4">
+                      Кстати...
+                    </a>
+                  </h4>
+                </div>
+                <div id="collapse4" class="panel-collapse collapse">
+                  <div class="panel-body">
+                    Задачу эту Серёжа решил в 4 года!
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+        {% endblock %}
+        </div>
+        <div class="col-md-4">
+        {% block sidebar %}
+          <div class="mnggrnnk-meta">
+
+            <div class="panel panel-info">
+              <div class="panel-body">
+                <div class="mnggrnnk-themes">
+                  Темы: 
+                    <a href="#">Взвешивания</a>,
+                    <a href="#">Алгоритмы</a>,
+                    <a href="#">Чётность</a>
+                </div>
+                <div class="mnggrnnk-grade">
+                  Класс: <strong>5</strong>-<strong>9</strong>
+                </div>
+                <div class="mnggrnnk-difficulty">
+                  Сложность: <strong>4</strong>
+                </div>
+                <div>
+                  Источник: <a href="#">Московская городская олимпиада по математике</a><br>
+                  Год: <a href="#">2015</a><br>
+                  Класс: <a href="#">6</a><br>
+                  Автор: <a href="#">И. Ященко</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel panel-info">
+              <div class="panel-body">
+
+                <div class="mnggrnnk-similar">
+                  См. также: <a href="#">Пять монет</a>, <a href="#">#143</a>, <a href="">Что-то интересное</a>
+                </div>
+
+              </div>
+            </div>
+
+
+            <div class="panel panel-info">
+              <div class="panel-body">
+
+                <div class="mnggrnnk-inlists">
+                  Входит в списки: <a href="#">Задачи для умных детей - 2</a>, <a href="#">Чётность - 1</a> 
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        {% endblock %}
+        </div>
+      </div>
+
+      <hr>
+
+      <footer>
+        <p>&copy; Многогранник 2016</p>
+      </footer>
+    </div> <!-- /container -->        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+{% endblock %}

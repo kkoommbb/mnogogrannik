@@ -1,6 +1,6 @@
-#from django.shortcuts import render
-
 from django.http import HttpResponse
+
+from django.shortcuts import render
 
 from .models import Problem
 
@@ -13,4 +13,4 @@ def index(request):
 def single_problem(request, problem_id):
     problem = Problem.objects.get(pk=problem_id)
     output = problem.name + ' ' + problem.task
-    return HttpResponse(output)
+    return render(request, 'problems/index.html')
