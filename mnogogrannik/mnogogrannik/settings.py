@@ -39,6 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tagulous',
+    'markdownx',
+#    'ckeditor',
+#    'ckeditor_uploader',
 ]
 
 SERIALIZATION_MODULES = {
@@ -143,4 +146,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
+MEDIA_ROOT = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'files', 'media')
+MEDIA_URL = '/media/'
+
+STATIC_ROOT = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'files', 'static')
 STATIC_URL = '/static/'
+
+MARKDOWNX_MARKDOWN_EXTENSIONS = ['mdx_katex']

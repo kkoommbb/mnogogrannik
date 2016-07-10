@@ -1,4 +1,5 @@
 {% extends "problems/main.html" %}
+{% load filters %}
 {% block content %}
     <div class="container">
       <!-- Example row of columns -->
@@ -8,7 +9,7 @@
       {% block header %}
         <div class="col-md-8">
             <div class="mnggrnnk-problem-h2">
-              <h2>Четыре монеты <small>#123</small></h2>
+              <h2>{% if problem.name %}{{ problem.name }}{% endif %}<small>#{{ problem.pk }}</small></h2>
             </div>
         </div>
       </div>
@@ -20,9 +21,13 @@
           <div class="mnggrnnk-problem">
 
             <p class="mnggrnnk-text">
+            {{ problem.task|markdownify }}
+<!--
               Имеется четыре монеты. Из них 3 настоящие и 1 фальшивая, отличающаяся от них по массе в неизвестно какую сторону. Как за два взвешивания на чашечных весах найти её?
+-->
             </p>
 
+            {% if problem.answer %}
             <div class="panel-group">
               <div class="panel panel-warning">
                 <div class="panel-heading">
@@ -32,12 +37,14 @@
                 </div>
                 <div id="collapse1" class="panel-collapse collapse">
                   <div class="panel-body">
-                    4
+                    {{ problem.answer }}
                   </div>
                 </div>
               </div>
             </div>
+            {% endif %}
 
+            {% if problem.direction %}
             <div class="panel-group">
               <div class="panel panel-warning">
                 <div class="panel-heading">
@@ -47,12 +54,14 @@
                 </div>
                 <div id="collapse2" class="panel-collapse collapse">
                   <div class="panel-body">
-                    Купите нормальные весы уже в конце концов!
+                    {{ problem.direction }}
                   </div>
                 </div>
               </div>
             </div>
+            {% endif %}
 
+            {% if problem.solution %}
             <div class="panel-group">
               <div class="panel panel-warning">
                 <div class="panel-heading">
@@ -62,13 +71,14 @@
                 </div>
                 <div id="collapse3" class="panel-collapse collapse">
                   <div class="panel-body">
-                    Взвешивайте до потери пульса. Потом идите к тете Тане из овощного -- она быстро все объяснит.
+                    {{ problem.solution }}
                   </div>
                 </div>
               </div>
             </div>
+            {% endif %}
 
-
+            {% if problem.more_info %}
             <div class="panel-group">
               <div class="panel panel-warning">
                 <div class="panel-heading">
@@ -80,11 +90,12 @@
                 </div>
                 <div id="collapse4" class="panel-collapse collapse">
                   <div class="panel-body">
-                    Задачу эту Серёжа решил в 4 года!
+                    {{ problem.more_info }}
                   </div>
                 </div>
               </div>
             </div>
+            {% endif %}
 
 
           </div>
@@ -96,14 +107,16 @@
 
             <div class="panel panel-info">
               <div class="panel-body">
+                {% if problem.theme %}
                 <div class="mnggrnnk-themes">
                   Темы: 
-                    <a href="#">Взвешивания</a>,
-                    <a href="#">Алгоритмы</a>,
-                    <a href="#">Чётность</a>
+                    {% for theme in problem.theme.all %}
+                    <a href="#">{{ theme }}</a>{% if not forloop.last %},{% endif %}
+                    {% endfor %}
                 </div>
+                {% endif %}
                 <div class="mnggrnnk-grade">
-                  Класс: <strong>5</strong>-<strong>9</strong>
+                  Класс: <strong>{{ problem.grade_down }}</strong>{% if problem.grade_up > problem.grade_down %}-<strong>{{ problem.grade_up }}</strong>{% endif %}
                 </div>
                 <div class="mnggrnnk-difficulty">
                   Сложность: <strong>4</strong>

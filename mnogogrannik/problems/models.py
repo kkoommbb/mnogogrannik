@@ -1,34 +1,70 @@
 from django.db import models
 from django.core.urlresolvers import reverse
+import tagulous
 import tagulous.models
+from markdownx.models import MarkdownxField
+import datetime
 
-grades = [(i,i) for i in range(1,11)]
+
+class Source(tagulous.models.TagTreeModel):
+    class TagMeta:
+        space_delimiter = False
+
+class Theme(tagulous.models.TagTreeModel):
+    class TagMeta:
+        initial = [
+            'Арифметика',
+            'Арифметика/Дроби',
+            'Геометрия',
+            'Геометрия/Синусы и косинусы',
+            'Тригонометрия/Синусы'
+        ]
+        force_lowercase = True
+        space_delimiter = False
+        autocomplete_view = 'problem_themes_autocomplete'
+
 
 class Problem(models.Model):
-    name        = models.CharField(u'Название', max_length=200)
-    task        = models.TextField(u'Условие', max_length=2000)
+    # TODO: make as yield functions
+    grades_ch   = [(i,i) for i in range(1,11)]  
+    categories_ch = [('school', 'Школьные'), ('olymp', 'Олимпиадные'), ('science', 'Исследовательские')]
+    years_ch    = [(r,r) for r in range(datetime.date.today().year, 2000, -1)]
+
+
+    name        = models.CharField(u'Название', max_length=200, blank=True)
+    task        = MarkdownxField()
     answer      = models.CharField(u'Ответ', max_length=200, blank=True)
     direction   = models.CharField(u'Указание', max_length=200, blank=True)
     solution    = models.TextField(u'Решение', max_length=2000, blank=True)
-    grade_up    = models.IntegerField(u'До класса', choices=grades)
-    grade_down  = models.IntegerField(u'От класса', choices=grades)
+    grade_down  = models.IntegerField(u'От класса', choices=grades_ch)
+    grade_up    = models.IntegerField(u'До класса', choices=grades_ch)
     more_info   = models.TextField(u'Дополнительная информация', max_length=2000, blank=True)
+
+    category    = models.CharField(u'Категория', max_length=10, choices=categories_ch, default='olymp')
+#    category    = tagulous.models.SingleTagField(
+#                    initial="school, olymp, science",
+#                    help_text="Категория"
+#                  )
+
+    theme       = tagulous.models.TagField(Theme, blank=True)
+
+    author      = tagulous.models.TagField(space_delimiter=False, blank=True)
+    book        = tagulous.models.TagField(space_delimiter=False, blank=True)
+
+    olymp       = tagulous.models.TagField(space_delimiter=False, blank=True)
+    lmsh        = tagulous.models.TagField(space_delimiter=False, blank=True)
+
+    year        = models.IntegerField(u'Год', choices=years_ch, default=None)
+    grade       = models.IntegerField(u'Класс', choices=grades_ch, default=None)
+    number      = models.IntegerField(u'Номер задачи', default=None)
     
-    category = tagulous.models.SingleTagField(
-                    initial="school, olymp, science",
-                    help_text="Категория"
-                  )
-#    theme       = tagulous.models.TagField(
-#                    tree=True,
-#                    get_absolute_url=lambda tag: reverse(
-#                                                    'problems.views.by_theme',
-#                                                    kwargs={'theme_slug': tag.path}
-#                                                )
-#                    )
 
     def __str__(self):
         return self.task
 
+class ImageSource(models.Model):
+    problem = models.ForeignKey(Problem)
+    source = models.FileField(upload_to='image_sources/')
 
 
 #    название - rich text
@@ -47,10 +83,3 @@ class Problem(models.Model):
 #    темы - hierarchy tags
 #    дополнительные теги - tags
 #    дополнительная информация - rich text
-
-
-
-# class Choice(models.Model):
-#     question = models.ForeignKey(Question)
-#     choice_text = models.CharField(max_length=200)
-#     votes = models.IntegerField(default=0)

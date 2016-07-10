@@ -15,8 +15,15 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
+
+from problems import models
+import tagulous.views
 
 urlpatterns = [
     url(r'^problems/', include('problems.urls')),
     url(r'^admin/', admin.site.urls),
-]
+    url(r'^markdownx/', include('markdownx.urls')),
+    url(r'^api/themes/', tagulous.views.autocomplete, {'tag_model': models.Theme}, name='problem_themes_autocomplete'),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

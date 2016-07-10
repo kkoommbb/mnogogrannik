@@ -13,4 +13,4 @@ def index(request):
 def single_problem(request, problem_id):
     problem = Problem.objects.get(pk=problem_id)
     output = problem.name + ' ' + problem.task
-    return render(request, 'problems/index.html')
+    return render(request, 'problems/index.html', {'problem': problem})
